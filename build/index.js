@@ -10,6 +10,16 @@
 
 module.exports = window["React"];
 
+/***/ }),
+
+/***/ "@wordpress/components":
+/*!************************************!*\
+  !*** external ["wp","components"] ***!
+  \************************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["components"];
+
 /***/ })
 
 /******/ 	});
@@ -89,6 +99,9 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+
 
 wp.blocks.registerBlockType("ourplugin/are-you-paying-attention", {
   title: "Are you paying attention?",
@@ -102,33 +115,26 @@ wp.blocks.registerBlockType("ourplugin/are-you-paying-attention", {
       type: "string"
     }
   },
-  edit: function (props) {
-    function updateSkyColor(e) {
-      props.setAttributes({
-        skyColor: e.target.value
-      });
-    }
-    function updateGrassColor(e) {
-      props.setAttributes({
-        grassColor: e.target.value
-      });
-    }
-    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
-      type: "text",
-      placeholder: "sky color",
-      value: props.attributes.skyColor,
-      onChange: updateSkyColor
-    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
-      type: "text",
-      placeholder: "grass color",
-      value: props.attributes.grassColor,
-      onChange: updateGrassColor
-    })));
-  },
+  edit: EditComponent,
   save: function (props) {
     return null;
   }
 });
+function EditComponent(props) {
+  function updateSkyColor(e) {
+    props.setAttributes({
+      skyColor: e.target.value
+    });
+  }
+  function updateGrassColor(e) {
+    props.setAttributes({
+      grassColor: e.target.value
+    });
+  }
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
+    label: "Question:"
+  })));
+}
 })();
 
 /******/ })()

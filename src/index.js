@@ -1,3 +1,5 @@
+import {TextControl} from '@wordpress/components';
+
 wp.blocks.registerBlockType("ourplugin/are-you-paying-attention", {
   title: "Are you paying attention?",
   icon: "smiley",
@@ -6,7 +8,14 @@ wp.blocks.registerBlockType("ourplugin/are-you-paying-attention", {
     skyColor: {type: "string"},
     grassColor: {type: "string"},
   },
-  edit: function(props) {
+  edit: EditComponent,
+  save: function(props) {
+    return null
+  },
+ 
+})
+
+function EditComponent(props) {
     function updateSkyColor (e) {
       props.setAttributes({skyColor: e.target.value})
     }
@@ -17,14 +26,11 @@ wp.blocks.registerBlockType("ourplugin/are-you-paying-attention", {
     return ( 
       <>
         <div>
-          <input type="text" placeholder="sky color" value={props.attributes.skyColor} onChange={updateSkyColor} />
-          <input type="text" placeholder="grass color" value={props.attributes.grassColor} onChange={updateGrassColor} />
+          {/* <input type="text" placeholder="sky color" value={props.attributes.skyColor} onChange={updateSkyColor} />
+          <input type="text" placeholder="grass color" value={props.attributes.grassColor} onChange={updateGrassColor} /> */}
+          <TextControl label="Question:"/>
+        
         </div>
       </>
     );
-  },
-  save: function(props) {
-    return null
-  },
- 
-});
+  }
