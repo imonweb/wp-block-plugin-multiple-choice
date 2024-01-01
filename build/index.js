@@ -2,6 +2,18 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/index.scss":
+/*!************************!*\
+  !*** ./src/index.scss ***!
+  \************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
 /***/ "react":
 /*!************************!*\
   !*** external "React" ***!
@@ -99,20 +111,24 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _index_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index.scss */ "./src/index.scss");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
 
+
+// import {TextControl, Flex, FlexBlock, FlexItem, Button, Icon} from '@wordpress/components';
 
 wp.blocks.registerBlockType("ourplugin/are-you-paying-attention", {
   title: "Are you paying attention?",
   icon: "smiley",
   category: "common",
   attributes: {
-    skyColor: {
+    question: {
       type: "string"
     },
-    grassColor: {
-      type: "string"
+    answers: {
+      type: "array",
+      default: ["red", "blue", "green"]
     }
   },
   edit: EditComponent,
@@ -121,19 +137,60 @@ wp.blocks.registerBlockType("ourplugin/are-you-paying-attention", {
   }
 });
 function EditComponent(props) {
-  function updateSkyColor(e) {
+  function updateQuestion(value) {
     props.setAttributes({
-      skyColor: e.target.value
+      question: value
     });
   }
-  function updateGrassColor(e) {
+  function deleteAnswer(indexToDelete) {
+    const newAnswers = props.attributes.answers.filter(function (x, index) {
+      return index != indexToDelete;
+    });
     props.setAttributes({
-      grassColor: e.target.value
+      answers: newAnswers
     });
   }
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
-    label: "Question:"
-  })));
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "paying-attention-edit-block"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+    label: "Question:",
+    value: props.attributes.question,
+    onChange: updateQuestion,
+    style: {
+      fontSize: "20px"
+    }
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+    style: {
+      fontSize: "13px",
+      margin: "20px 0 8px 0"
+    }
+  }, "Answers:"), props.attributes.answers.map((answer, index) => {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Flex, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.FlexBlock, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+      value: answer,
+      onChange: newValue => {
+        const newAnswers = props.attributes.answers.concat([]);
+        newAnswers[index] = newValue;
+        props.setAttributes({
+          answers: newAnswers
+        });
+      }
+    })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.FlexItem, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Icon, {
+      className: "mark-as-correct",
+      icon: "star-empty"
+    }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.FlexItem, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+      className: "attention-delete",
+      onClick: () => {
+        deleteAnswer(index);
+      }
+    }, "Delete")));
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+    isPrimary: true,
+    onClick: () => {
+      props.setAttributes({
+        answers: props.attributes.answers.concat([""])
+      });
+    }
+  }, "Add another answer")));
 }
 })();
 
