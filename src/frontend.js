@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom'
 
 import "./frontend.scss"
 
-const divsToUpdate = document.querySelectorAll(".paying-attention-update-me")
+document.addEventListener('DOMContentLoaded', () => {
+  const divsToUpdate = document.querySelectorAll(".paying-attention-update-me")
 
 divsToUpdate.forEach(function(div) {
   // div.innerHTML = "Hello"
@@ -83,3 +84,4 @@ function Quiz(props) {
     </div>
   )
 }
+}) // addEventListener
